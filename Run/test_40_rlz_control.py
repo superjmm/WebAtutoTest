@@ -26,6 +26,7 @@ add_ctl_path = base_path+'/Case/rlz-add2-control.xlsx'
 add_gp_path = base_path+'/Case/rlz-add3-group.xlsx' 
 add_gather_path = base_path+'/Case/rlz-param-gather.xlsx'
 add_control_path = base_path+'/Case/rlz-param-control.xlsx'
+copy_path = base_path+'/Case/rlz-copy-new.xlsx'
 update_gather_path = base_path+'/Case/rlz-param-gather-update.xlsx'
 update_param_path = base_path+'/Case/rlz-param-update.xlsx'
 add_param_path = base_path+'/Case/rlz-param-add.xlsx'
@@ -36,6 +37,7 @@ add_ctl_list = handle_excel.get_table_value(add_ctl_path)
 add_gp_list = handle_excel.get_table_value(add_gp_path)
 add_gather_list = handle_excel.get_table_value(add_gather_path)
 add_control_list = handle_excel.get_table_value(add_control_path)
+copy_list = handle_excel.get_table_value(copy_path)
 update_gather_list = handle_excel.get_table_value(update_gather_path)
 add_param_list =  handle_excel.get_table_value(add_param_path)
 update_param_list =  handle_excel.get_table_value(update_param_path)
@@ -305,4 +307,37 @@ class TestRlz():
                 handle_excel.write_value(add_control_path,n,test_result_col,'通过')
             else:
                 handle_excel.write_value(add_control_path,n,test_result_col,'失败')
+            assert result
+
+    @pytest.mark.skip()
+    @pytest.mark.parametrize('case',copy_list)
+    @allure.feature('热力站-复制')
+    def test_copy(self,case):
+        
+        global rlz_manage
+        global add_row
+        global logger
+        add_row += 1  
+        n = add_row   
+        case_id = case[0]
+        is_execute = case[2]
+        #测试结果所在的列
+        test_result_col = 35 
+        #用例编号不能为空
+        if case_id is None: 
+            logger.info(f'第{n}行，用例编号为空！')
+            print(f'第{n}行，用例编号为空！')
+            pytest.skip('用例编号为空')
+        #判断该条用例是否执行
+        elif is_execute == 'no' : 
+            logger.info(case_id+'跳过不执行！')
+            print(case_id+'跳过不执行！')  
+            pytest.skip('跳过不执行') 
+        # 执行用例
+        else: 
+            result = rlz_manage.copy_to_newrlz(case)
+            if result:
+                handle_excel.write_value(copy_path,n,test_result_col,'通过')
+            else:
+                handle_excel.write_value(copy_path,n,test_result_col,'失败')
             assert result

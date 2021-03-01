@@ -561,7 +561,7 @@ class BzdbManage: #标准点表
     def update(self,case):
         flag = False
         name_old = case[2]
-        parm_type = case[3]
+        parm_type = "采集量"
         name = None
         lable_name = None
         unit = case[6]
@@ -589,77 +589,79 @@ class BzdbManage: #标准点表
             raise Exception('搜索参量名称失败！')
         try:
             time.sleep(2)
-            elem = browser.find_element_by_xpath("//div[@class='el-table__body-wrapper is-scrolling-left']/descendant::div[text()='"+name_old+"']/parent::*/parent::*/following-sibling::td[10]/div/button[1]")
+            elem = browser.find_element_by_xpath("//div[@class='el-table__body-wrapper is-scrolling-left']/descendant::div[text()='"+name_old+"']/parent::*/parent::*/following-sibling::td[11]/div/button[1]")
             browser.execute_script("arguments[0].click();", elem) #使用JavaScript进行点击
         except:
             raise Exception('点击编辑失败！')
         try:
-            if '采集量' == parm_type:
-                browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[1]/div/div/label[1]").click()
-            if '控制量' == parm_type:
-                browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[1]/div/div/label[2]").click()
-            if name is not None:
-                browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[2]/div/div/input").clear()
-                browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[2]/div/div/input").send_keys(name)
-            if lable_name is not None:
-                browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[3]/div/div/input").clear()
-                browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[3]/div/div/input").send_keys(lable_name)
-            if unit is not None:
-                browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[4]/div/div").click()
-                browser.find_element_by_xpath("//span[text()='"+unit+"']").click()
-            if group is not None:
-                browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[5]/div/div").click()
-                browser.find_element_by_xpath("//span[text()='"+group+"']").click()
+            time.sleep(3)
+            browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[1]/div/div/label[2]").click()
+            # if '采集量' == parm_type:
+            #     browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[1]/div/div/label[1]").click()
+            # if '控制量' == parm_type:
+            #     browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[1]/div/div/label[2]").click()
+            # if name is not None:
+            #     browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[2]/div/div/input").clear()
+            #     browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[2]/div/div/input").send_keys(name)
+            # if lable_name is not None:
+            #     browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[3]/div/div/input").clear()
+            #     browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[3]/div/div/input").send_keys(lable_name)
+            # if unit is not None:
+            #     browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[4]/div/div").click()
+            #     browser.find_element_by_xpath("//span[text()='"+unit+"']").click()
+            # if group is not None:
+            #     browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[5]/div/div").click()
+            #     browser.find_element_by_xpath("//span[text()='"+group+"']").click()
 
-            browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[5]/div/div").click()
-            browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[5]/div/div").click()
-            if fix_type == '报警量':
-                browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[6]/div/div/label[1]").click()
-            if fix_type == '时间值':
-                browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[6]/div/div/label[2]").click()
-            if fix_type == '模拟量':
-                browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[6]/div/div/label[3]").click()
+            # browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[5]/div/div").click()
+            # browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[5]/div/div").click()
+            # if fix_type == '报警量':
+            #     browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[6]/div/div/label[1]").click()
+            # if fix_type == '时间值':
+            #     browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[6]/div/div/label[2]").click()
+            # if fix_type == '模拟量':
+            #     browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[6]/div/div/label[3]").click()
             
-            if kind == 'TX':
-                elem = browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[7]/div/div/label[1]")
-                browser.execute_script("arguments[0].click();",elem)
-            if kind == 'DO':
-                elem = browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[7]/div/div/label[2]/")
-                browser.execute_script("arguments[0].click();",elem)
-            if kind == 'CO':
-                elem = browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[7]/div/div/label[3]")
-                browser.execute_script("arguments[0].click();",elem)
-            if kind == 'AO':
-                elem = browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[7]/div/div/label[4]")
-                browser.execute_script("arguments[0].click();",elem)
-            if kind == 'AI':
-                elem = browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[7]/div/div/label[5]")
-                browser.execute_script("arguments[0].click();",elem)
-            if kind == 'DI':
-                elem = browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[7]/div/div/label[6]")
-                browser.execute_script("arguments[0].click();",elem)
+            # if kind == 'TX':
+            #     elem = browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[7]/div/div/label[1]")
+            #     browser.execute_script("arguments[0].click();",elem)
+            # if kind == 'DO':
+            #     elem = browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[7]/div/div/label[2]/")
+            #     browser.execute_script("arguments[0].click();",elem)
+            # if kind == 'CO':
+            #     elem = browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[7]/div/div/label[3]")
+            #     browser.execute_script("arguments[0].click();",elem)
+            # if kind == 'AO':
+            #     elem = browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[7]/div/div/label[4]")
+            #     browser.execute_script("arguments[0].click();",elem)
+            # if kind == 'AI':
+            #     elem = browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[7]/div/div/label[5]")
+            #     browser.execute_script("arguments[0].click();",elem)
+            # if kind == 'DI':
+            #     elem = browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[7]/div/div/label[6]")
+            #     browser.execute_script("arguments[0].click();",elem)
               
 
-            if wclx == '公用':
-                browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[8]/div/div/label[1]").click()
-            if wclx == '一次侧':
-                browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[8]/div/div/label[2]").click()
-            if wclx == '二次侧':
-                browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[8]/div/div/label[3]").click()
-            if is_caculate == 'yes':
-                browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[9]/div/div/label[1]").click()
-            if is_caculate == 'no':
-                browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[9]/div/div/label[2]").click()
-            if is_view == 'yes':
-                browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[10]/div/div/label[1]").click()
-            if is_view == 'no':
-                browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[10]/div/div/label[2]").click()
-            if is_main == 'yes':
-                browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[11]/div/div/label[1]").click()
-            if is_main == 'no':
-                browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[11]/div/div/label[2]").click()
-            if order is not None:
-                browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[12]/div/div/input").send_keys(order)
+            # if wclx == '公用':
+            #     browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[8]/div/div/label[1]").click()
+            # if wclx == '一次侧':
+            #     browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[8]/div/div/label[2]").click()
+            # if wclx == '二次侧':
+            #     browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[8]/div/div/label[3]").click()
+            # if is_caculate == 'yes':
+            #     browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[9]/div/div/label[1]").click()
+            # if is_caculate == 'no':
+            #     browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[9]/div/div/label[2]").click()
+            # if is_view == 'yes':
+            #     browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[10]/div/div/label[1]").click()
+            # if is_view == 'no':
+            #     browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[10]/div/div/label[2]").click()
+            # if is_main == 'yes':
+            #     browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[11]/div/div/label[1]").click()
+            # if is_main == 'no':
+            #     browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[11]/div/div/label[2]").click()
+            # if order is not None:
+            #     browser.find_element_by_xpath("//form[@class='el-form ruleForm']/div[12]/div/div/input").send_keys(order)
             if button == 'yes':
                 time.sleep(3)
                 browser.find_element_by_xpath("//form[@class='el-form ruleForm']/parent::div/following-sibling::div[1]/span/button[2]").click()
@@ -2660,6 +2662,7 @@ class RlzManage: #热力站
         # url = handle_ini.get_value(url_ini_path,'server','host') + handle_ini.get_value(url_ini_path,'module','rlz')
         # browser.get(url)
         try:
+            time.sleep(3)
             browser.find_element_by_xpath("//span[text()='热力站管理']").click()
         except:
             raise Exception('点击热力站管理模块失败！')
@@ -4177,11 +4180,38 @@ class RlzManage: #热力站
                 flag = True      
             return flag 
     
-    def update_gather_param(self,data):#采集量
-            flag = False
+    def add_param(self,data):#点配置-添加
+            flag = False         
             rlz_name = data[3]
-            tag_name = data[8].strip()
-            point_addr = data[9].strip()
+            control_box = data[4]
+            group = data[5]
+            wc_type = data[6]
+            param_name = data[7]
+            keyword = data[8]      
+            device_setup_type = data[9]
+            device_setup_item = data[10]
+            accident_low = data[11]
+            accident_high = data[12]
+            run_low = data[13]
+            run_high = data[14]        
+            view_order = data[15]
+            annotation = data[16]
+            alarm_type = data[17]
+            is_alarm = data[18]
+            alarm_value = data[19]
+            alarm_confirm = data[20]
+            is_reverse = data[21]
+            data_type = data[22]
+            byte_order = data[23]
+            point_addr = data[24]
+            up_clean_method = data[25]
+            extend_field = data[26]    
+            value_high = data[27]
+            value_low = data[28]
+            param_correction = data[29]
+            down_clean_method = data[30]
+            type_marking = data[31]
+            button = data[32]
            
             #1.搜索热力站
             try:
@@ -4193,17 +4223,311 @@ class RlzManage: #热力站
                 elem.send_keys(Keys.ENTER)
             except:
                 raise Exception('搜索热力站失败！')  
-            #2.点击【采集量】
+            #2.点击【点配置】
             try:
                 time.sleep(3)
                 browser.find_element_by_xpath("//div[@class='el-table__fixed-right']/descendant::div[text()='"+rlz_name+"']/parent::*/parent::*/following-sibling::td[15]").click()
             except:
-                raise Exception('点击采集量失败！')
+                raise Exception('点击点配置失败！')
+            
+            #2.点击【添加】
+            try:
+                time.sleep(3)
+                # browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/descendant::span[text()='添加']").click() 
+                elem = browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/descendant::span[text()='添加']")
+                browser.execute_script("arguments[0].click();",elem)  
+            except:
+                raise Exception('点击添加失败！')
+
+            #3.输入添加内容
+            ##3.1 网侧类型选择
+            try:
+                
+                if '公用' == wc_type:
+                    time.sleep(2)
+                    browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='network-type clearfix']/div[1]").click()
+                if '一次侧' == wc_type:
+                    time.sleep(2)
+                    browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='network-type clearfix']/div[2]").click()
+                if '二次侧' == wc_type:
+                    time.sleep(2)
+                    browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='network-type clearfix']/div[3]").click()
+            except:
+                raise Exception('点击网侧类型失败！')
+            
+            ##3.3 选择参量并点击
+            time.sleep(2)
+            try:
+                elem = browser.find_element_by_xpath("//input[@placeholder='请输入想要添加采集量名称']")
+                elem.send_keys(" ")
+                elem.clear()
+                elem.send_keys(param_name)
+                elem.send_keys(Keys.ENTER)
+            except:
+                raise Exception('搜索失败！')
+            time.sleep(2)
+            try:
+                browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='search-content']/div[text()='"+param_name+"']").click()
+            except:
+                raise Exception('点击标准参量失败！')
+                            
+            ##3.4 选中参量通讯配置     
+            try:
+                # if '公用' == wc_type:
+                #     browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='center']/descendant::span[text()='"+param_name+"']").click()
+                # if '一次侧' == wc_type:
+                #     browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='center']/descendant::span[text()='"+param_name+"']").click()
+                # if '二次侧' == wc_type:
+                #     browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='center']/descendant::span[text()='"+param_name+"']").click()
+                time.sleep(3)
+                browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/descendant::div[@class='center']/descendant::span[text()='"+param_name+"']").click()
+            except:
+                raise Exception('选中参量点击失败！')
+            #3.5协议通讯配置
+            try:
+                # 设备配置
+                if device_setup_item is not None and device_setup_item !='':
+                    time.sleep(2)
+                    browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[5]/div/div").click()
+                    time.sleep(2)
+                    # browser.find_element_by_xpath("//input[@placeholder='检索关键字']").send_keys(keyword)
+                    elem = browser.find_element_by_xpath("//body/div[last()]/descendant::input[@placeholder='检索关键字']")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(keyword)
+                    # browser.find_element_by_xpath("//li[@class='el-select-dropdown__item options selected hover']/descendant::span[text()='"+device_setup_type+"']").click()
+                    # elem = browser.find_element_by_xpath("//li[@class='el-select-dropdown__item options selected hover']/descendant::span[text()='"+device_setup_type+"']")
+                    # browser.execute_script("arguments[0].click();", elem) #使用JavaScript进行点击
+                    time.sleep(3)
+                    browser.find_element_by_xpath("//body/div[last()]/descendant::span[text()='"+device_setup_item+"']").click()
+                #控制柜
+                if control_box is not None:
+                    time.sleep(2)
+                    browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[6]/div/div/div[1]").click()
+                    time.sleep(2)
+                    # browser.find_element_by_xpath("//li[@class='el-select-dropdown__item hover']/span[text()='"+control_box+"']").click()
+                    browser.find_element_by_xpath("//body/div[last()]/descendant::span[text()='"+control_box+"']").click()
+                #机组
+                if group is not None:
+                    group = group.split(',')
+                    time.sleep(3)
+                    for g in group:
+                        try:
+                            browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[7]/div/div/descendant::span[text()='"+g+"']/parent::label[@class='el-checkbox is-checked']")
+                        except:
+                            browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[7]/div/div/descendant::span[text()='"+g+"']").click()
+                # 事故低报警
+                if accident_low is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[8]/div/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(accident_low)
+                # 事故高报警
+                if accident_high is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[9]/div/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(accident_high)
+                # 运行低报警
+                if run_low is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[10]/div/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(run_low)                        
+                # 运行高报警
+                if run_high is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[11]/div/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(run_high)
+                # 显示顺序
+                if view_order is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[12]/div/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(view_order)
+                # 注释
+                if annotation is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[13]/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(annotation)
+                # 报警类型
+                if alarm_type is not None and alarm_type != '':
+                    browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[14]/div/div").click()
+                    browser.find_element_by_xpath("//span[text()='"+alarm_type+"']").click()
+                # 是否报警
+                if is_alarm is not None and is_alarm != '':
+                    old = '是'
+                    try:
+                        browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[15]/div/div[@class='el-switch is-checked']")
+                    except:
+                        old = '否'
+                    if old != is_alarm:
+                        browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[15]/div/div").click()
+                
+                # 报警值0
+                if '0' == alarm_value or 0 == alarm_value: 
+                    browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[16]/div/div/label[1]").click()
+                # 报警值1
+                if '1' == alarm_value or 1 == alarm_value:
+                    browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[16]/div/div/label[2]").click()
+                # 是否确认报警
+                if alarm_confirm is not None and alarm_confirm != '':
+                    old = '是'
+                    try:
+                        browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[17]/div/div[@class='el-switch is-checked']")
+                    except:
+                        old = '否'
+                    if old != alarm_confirm:
+                        browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[17]/div/div").click()
+                # 是否取反
+                if is_reverse is not None:
+                    old = '是'
+                    try:
+                        browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[18]/div/div[@class='el-switch is-checked']")
+                    except:
+                        old = '否'
+                    if old != is_reverse:
+                        browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[18]/div/div").click()
+                # 数据类型
+                if data_type is not None and data_type != '':
+                    browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[19]/div/div/label/descendant::span[contains(text(),'"+data_type+"')]").click()
+                # 字节序
+                if byte_order is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[20]/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(byte_order)
+                # 点地址
+                if point_addr is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[21]/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(point_addr)
+                # 上行清洗策略
+                if up_clean_method is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[22]/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(up_clean_method)
+                # 扩展字段
+                if extend_field is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[23]/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(extend_field)
+                #  高限
+                if value_high is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[24]/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(value_high)
+                # 低限
+                if value_low is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[25]/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(value_low)    
+                # 参数修正值
+                if param_correction is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[26]/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(param_correction)  
+                # 下行清洗策略
+                if down_clean_method is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[27]/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(down_clean_method)                  
+                # 分类标识
+                if type_marking is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/div[2]/descendant::div[@class='right']/div[2]/div[1]/div/div/form/div[28]/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(type_marking)
+            except:
+                raise Exception('输入添加内容有误！')
+            
+            #4.确定或取消
+            if 'yes' == button:
+                time.sleep(2)
+                # browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/descendant::span[text()='保存']").click()
+                elem = browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/descendant::span[text()='保存']")
+                browser.execute_script("arguments[0].click();",elem)
+                time.sleep(2)
+                browser.find_element_by_xpath("//span[text()='添加']/parent::*/following-sibling::button[@class='el-dialog__headerbtn']").click()
+                time.sleep(2)
+                browser.find_element_by_xpath("//span[contains(text(),'点配置')]/parent::*/following-sibling::button").click()
+                flag = True
+            if 'clear' == button:
+                time.sleep(2)
+                browser.find_element_by_xpath("//section/div/div[@class='collection-capacity-alert'][1]/descendant::span[text()='重置']").click()
+                flag= True
+            if 'close' == button:
+                time.sleep(2)
+                browser.find_element_by_xpath("//span[text()='添加']/parent::*/following-sibling::button[@class='el-dialog__headerbtn']").click()
+                time.sleep(2)
+                browser.find_element_by_xpath("//span[contains(text(),'点配置')]/parent::*/following-sibling::button").click()
+                flag = True      
+            return flag 
+
+    def update_param(self,data):#点配置-编辑
+            flag = False         
+            rlz_name = data[3]
+            control_box = data[4]
+            group = data[5]
+            wc_type = data[6]
+            param_name = data[8]
+            tag_name = data[7].strip()
+            keyword = data[9]      
+            device_setup_type = data[10]
+            device_setup_item = data[11]
+            accident_low = data[12]
+            accident_high = data[13]
+            run_low = data[14]
+            run_high = data[15]        
+            view_order = data[16]
+            annotation = data[17]
+            alarm_type = data[18]
+            is_alarm = data[19]
+            alarm_value = data[20]
+            alarm_confirm = data[21]
+            is_reverse = data[22]
+            data_type = data[23]
+            byte_order = data[24]
+            point_addr = data[25]
+            up_clean_method = data[26]
+            extend_field = data[27]    
+            value_high = data[28]
+            value_low = data[29]
+            param_correction = data[30]
+            down_clean_method = data[31]
+            type_marking = data[32]
+            button = data[33]
+           
+            #1.搜索热力站
+            try:
+                time.sleep(3)
+                elem = browser.find_element_by_xpath("//input[@placeholder='输入站点名称或者汉字']")
+                elem.send_keys(" ")
+                elem.clear()
+                elem.send_keys(rlz_name)
+                elem.send_keys(Keys.ENTER)
+            except:
+                raise Exception('搜索热力站失败！')  
+            #2.点击【点配置】
+            try:
+                time.sleep(3)
+                browser.find_element_by_xpath("//div[@class='el-table__fixed-right']/descendant::div[text()='"+rlz_name+"']/parent::*/parent::*/following-sibling::td[15]").click()
+            except:
+                raise Exception('点击点配置失败！')
             
             #3.搜索
             try:
                 time.sleep(3)
-                elem = browser.find_element_by_xpath("//span[contains(text(),'采集量维护')]/parent::*/parent::*/following-sibling::div/div/div[1]/div[2]/div[1]/div[@class='inputName'][2]/div/input")
+                elem = browser.find_element_by_xpath("//span[contains(text(),'点配置')]/parent::*/parent::*/following-sibling::div/div/div[1]/div[2]/div[1]/div[@class='inputName'][2]/div/input")
                 elem.send_keys(" ")
                 elem.clear()
                 elem.send_keys(tag_name)
@@ -4220,29 +4544,167 @@ class RlzManage: #热力站
             except:
                 raise Exception('点击编辑失败！')
 
-            #5.修改点地址
+            #5.修改
             try:
                 time.sleep(2)
-                elem = browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[18]/div/div/input")
-                elem.send_keys(" ")
-                elem.clear()
-                elem.send_keys(point_addr)
+                # 设备配置
+                if device_setup_item is not None and device_setup_item !='':
+                    time.sleep(2)
+                    browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[1]/div/div").click()
+                    time.sleep(2)
+                    # browser.find_element_by_xpath("//input[@placeholder='检索关键字']").send_keys(keyword)
+                    elem = browser.find_element_by_xpath("//body/div[last()]/descendant::input[@placeholder='检索关键字']")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(keyword)
+                    # browser.find_element_by_xpath("//li[@class='el-select-dropdown__item options selected hover']/descendant::span[text()='"+device_setup_type+"']").click()
+                    # elem = browser.find_element_by_xpath("//li[@class='el-select-dropdown__item options selected hover']/descendant::span[text()='"+device_setup_type+"']")
+                    # browser.execute_script("arguments[0].click();", elem) #使用JavaScript进行点击
+                    time.sleep(3)
+                    browser.find_element_by_xpath("//body/div[last()]/descendant::span[text()='"+device_setup_item+"']").click()
+                # 事故低报警
+                if accident_low is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[18]/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(accident_low)
+                # 事故高报警
+                if accident_high is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[3]/div/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(accident_high)
+                # 运行低报警
+                if run_low is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[4]/div/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(run_low)                        
+                # 运行高报警
+                if run_high is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[5]/div/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(run_high)
+                # 显示顺序
+                if view_order is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[6]/div/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(view_order)
+                # 注释
+                if annotation is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[7]/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(annotation)
+                # 报警类型
+                if alarm_type is not None and alarm_type != '':
+                    browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[8]/div/div").click()
+                    browser.find_element_by_xpath("//span[text()='"+alarm_type+"']").click()
+                # 是否报警
+                if is_alarm is not None and is_alarm != '':
+                    old = '是'
+                    try:
+                        browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[9]/div/div[@class='el-switch is-checked']")
+                    except:
+                        old = '否'
+                    if old != is_alarm:
+                        browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[9]/div/div").click()
+                
+                # 报警值0
+                if '0' == alarm_value or 0 == alarm_value: 
+                    browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[10]/div/div/label[1]").click()
+                # 报警值1
+                if '1' == alarm_value or 1 == alarm_value:
+                    browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[10]/div/div/label[2]").click()
+                # 是否确认报警
+                if alarm_confirm is not None and alarm_confirm != '':
+                    old = '是'
+                    try:
+                        browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[11]/div/div[@class='el-switch is-checked']")
+                    except:
+                        old = '否'
+                    if old != alarm_confirm:
+                        browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[11]/div/div").click()
+                # 是否取反
+                if is_reverse is not None:
+                    old = '是'
+                    try:
+                        browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[12]/div/div[@class='el-switch is-checked']")
+                    except:
+                        old = '否'
+                    if old != is_reverse:
+                        browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[12]/div/div").click()
+                # 数据类型
+                if data_type is not None and data_type != '':
+                    browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[13]/div/div/label/descendant::span[contains(text(),'"+data_type+"')]").click()
+                # 字节序
+                if byte_order is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[14]/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(byte_order)
+                # 点地址
+                if point_addr is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[15]/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(point_addr)
+                # 上行清洗策略
+                if up_clean_method is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[16]/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(up_clean_method)
+                # 扩展字段
+                if extend_field is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[17]/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(extend_field)
+                 #  高限
+                if value_high is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[18]/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(value_high)
+                # 低限
+                if value_low is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[19]/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(value_low)    
+                # 参数修正值
+                if param_correction is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[20]/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(param_correction)  
+                # 下行清洗策略
+                if down_clean_method is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[21]/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(down_clean_method)                  
+                # 分类标识
+                if type_marking is not None:
+                    elem = browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[22]/div/div/input")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(type_marking)
             except:
-                raise Exception('修改点地址失败！')
+                raise Exception('修改失败！')
             #6.保存
             try:
                 time.sleep(2)
-                browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[22]/div/button[2]").click()
+                browser.find_element_by_xpath("//section/div/div[4]/div[2]/div/div[2]/div/form/div[23]/div/button[2]").click()
                 flag = True  
             except:
                 raise Exception("点击保存失败！")  
             try:
-                #关闭添加窗口
-                # elem = browser.find_element_by_xpath("//span[text()='采集量-编辑']/parent::*/following-sibling::button")
-                # browser.execute_script("arguments[0].click();",elem)
-                #关闭采集量维护窗口
                 time.sleep(2)
-                elem = browser.find_element_by_xpath("//span[contains(text(),'采集量维护')]/parent::*/following-sibling::button")
+                elem = browser.find_element_by_xpath("//span[contains(text(),'点配置')]/parent::*/following-sibling::button")
                 browser.execute_script("arguments[0].click();",elem)
             except:
                 raise Exception("关闭窗口失败！") 
@@ -4468,10 +4930,21 @@ class RlzManage: #热力站
         distance = data[30]
         protocol_type = data[31]
         button = data[32]
-        #1.先点击【复制】
+        #1.找到复制源
+        #1.1 搜索热力站
+        try:
+            time.sleep(3)
+            elem = browser.find_element_by_xpath("//input[@placeholder='输入站点名称或者汉字']")
+            elem.send_keys(" ")
+            elem.clear()
+            elem.send_keys(source_name)
+            elem.send_keys(Keys.ENTER)
+        except:
+            raise Exception('搜索热力站失败！')  
+        #1.2 点击【复制】
         try:
             time.sleep(2)
-            browser.find_element_by_xpath("//div[@class='el-table__fixed-right']/descendant::div[text()='"+source_name+"']/parent::*/parent::*/following-sibling::td[17]").click()
+            browser.find_element_by_xpath("//div[@class='el-table__fixed-right']/descendant::div[text()='"+source_name+"']/parent::*/parent::*/following-sibling::td[16]").click()
         except:
             raise Exception('点击复制失败！')
         
@@ -4529,7 +5002,12 @@ class RlzManage: #热力站
                 #搜索关键字
                 if keyword is not None:
                     time.sleep(2)
-                    browser.find_element_by_xpath("//body/div[@class='el-select-dropdown el-popper select-option']/descendant::input[@placeholder='检索关键字']").send_keys(keyword) 
+                    elem=browser.find_element_by_xpath("//body/div[@class='el-select-dropdown el-popper select-option']/descendant::input[@placeholder='检索关键字']")
+                    elem.send_keys(" ")
+                    elem.clear()
+                    elem.send_keys(keyword) 
+                    # elem.send_keys(Keys.ENTER)
+                    
                 #选择公司
                 
                 time.sleep(3)
